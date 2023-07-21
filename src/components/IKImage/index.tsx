@@ -74,6 +74,7 @@ class IKImage extends ImageKitComponent<IKImageProps> {
       });
     }
   }
+  
 
   componentWillUnmount() {
     const { observe } = this.state;
@@ -95,9 +96,14 @@ class IKImage extends ImageKitComponent<IKImageProps> {
     }
   }
 
+  
+
   render() {
     let { currentUrl } = this.state;
     const { urlEndpoint, loading, lqip, path, src, transformation, transformationPosition, queryParameters, ...restProps } = this.props;
+
+    console.log({'asdasd':urlEndpoint})
+
     return <img
       alt={this.props.alt || ""}
       src={currentUrl}

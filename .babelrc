@@ -1,10 +1,9 @@
 {
-    "presets": [
-        "@babel/preset-react",
-        "@babel/preset-env",
-        "@babel/preset-typescript"
-    ],
-    "plugins": [
-        "transform-class-properties"
-    ]
+  "presets": [
+    "@babel/preset-react",
+    "@babel/preset-env",
+    "@babel/preset-typescript",
+    ["@babel/preset-react", { "runtime": "automatic" }]
+  ],
+  "plugins": ["transform-class-properties"]
 }
