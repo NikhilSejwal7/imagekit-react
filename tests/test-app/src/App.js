@@ -1,10 +1,17 @@
 import React, { useState, useRef } from 'react';
 import './App.css';
-import { IKImage, IKContext, IKUpload, IKVideo } from 'imagekitio-react'
+// import { IKImage, IKContext, IKUpload, IKVideo } from 'imagekitio-react'
+// import {IKCore} from './ImageKitLibrary';
+import IKContext from './ImageKitLibrary/components/IKContext';
+import IKImage from './ImageKitLibrary/components/IKImage';
+import IKVideo from './ImageKitLibrary/components/IKVideo';
+import IKUpload from './ImageKitLibrary/components/IKUpload';
+
 function App() {
   const publicKey = process.env.REACT_APP_PUBLIC_KEY;
   const urlEndpoint = process.env.REACT_APP_URL_ENDPOINT;
   const authenticationEndpoint = process.env.REACT_APP_AUTHENTICATION_ENDPOINT;
+
   let reftest = useRef(null);
   const [error, setError] = useState();
 
@@ -79,10 +86,10 @@ function App() {
       <p>Using context <code>IKContext</code></p>
       <IKContext publicKey={publicKey} urlEndpoint={urlEndpoint} authenticationEndpoint={authenticationEndpoint} >
         <p>Let's add an Image</p>
-        <IKImage src={src} />
+        <IKImage src={src} urlEndpoint={urlEndpoint} />
 
         <p>Transformation - height and width manipulation</p>
-        <IKImage className={'img-transformation'} path={path} transformation={imageTr} />
+        <IKImage urlEndpoint={urlEndpoint} className={'img-transformation'} path={path} transformation={imageTr} />
         <div>
           <p>Click here to apply max radius on above image </p>
           <button
@@ -96,7 +103,7 @@ function App() {
         </div>
         <br />
         <p>Chained transformation</p>
-        <IKImage path={path} transformation={[{
+        <IKImage urlEndpoint={urlEndpoint} path={path} transformation={[{
           "height": "200",
           "width": "200",
         },
@@ -106,6 +113,7 @@ function App() {
 
         <p>Lazy loading image</p>
         <IKImage
+          urlEndpoint={urlEndpoint}
           className={'lazyload'}
           path={path}
           transformation={[{
@@ -117,6 +125,7 @@ function App() {
 
         <p>Progressive image loading wihtout lazy loading</p>
         <IKImage
+          urlEndpoint={urlEndpoint}
           className={'lqip'}
           path={path}
           transformation={[{
@@ -130,6 +139,7 @@ function App() {
 
         <p>Progressive image loading with lazy loading</p>
         <IKImage
+          urlEndpoint={urlEndpoint}
           className={'lazyload-lqip'}
           path={path}
           transformation={[{
@@ -153,6 +163,8 @@ function App() {
           onSuccess={onSuccess}
           inputRef={reftest}
           className="file-upload-ik"
+          urlEndpoint={urlEndpoint}
+          webhookUrl='asdasd'
         />
         <p>Custom Upload Button</p>
         {reftest && <button onClick={() => reftest.current.click()}>Upload</button>}
@@ -167,6 +179,7 @@ function App() {
           folder={"/sample-folder"}
           onError={onError}
           onSuccess={onSuccess}
+          urlEndpoint={urlEndpoint}
         />
 
         {(error && error.hasOwnProperty('uploadFileErr')) && <p style={{ color: 'red' }} className='upload-error-ik'>{'File upload failed.'}</p>}
@@ -179,6 +192,7 @@ function App() {
           path={videoPath}
           transformation={[{ height: 200, width: 200 }]}
           controls={true}
+          urlEndpoint={urlEndpoint}
         />
 
         <br />
@@ -188,6 +202,7 @@ function App() {
           path={videoPath}
           transformation={[{ height: 200, width: 600, b: '5_red', q: 95 }]}
           controls={true}
+          urlEndpoint={urlEndpoint}
         />
       </IKContext>
     </div>
